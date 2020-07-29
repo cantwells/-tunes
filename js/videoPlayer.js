@@ -12,6 +12,12 @@ export const videoPlayerInit = () => {
     //Переключает состояние на воспроизводить/пауза
     const togglePlay = () => videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause();
 
+    //Остановка видео
+    const stopPlay = () => {
+        videoPlayer.pause();
+        videoPlayer.currentTime = 0;
+    }
+
     //===========================события============================================================
 
     //Воспроизведение/Пауза при нажатии на по экрану
@@ -32,5 +38,8 @@ export const videoPlayerInit = () => {
         videoButtonPlay.classList.remove('fa-pause');
         videoButtonPlay.classList.add('fa-play');
     })
+
+    //Событие при нажатию кнопки stop
+    videoButtonStop.addEventListener('click', stopPlay);
 
 }
