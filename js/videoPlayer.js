@@ -65,4 +65,10 @@ export const videoPlayerInit = () => {
         videoProgress.value = (currentTime / duration) * 100;
     })
 
+    //Cрабатывает когда изменяется место положение бегунка
+    videoProgress.addEventListener('input', () => {
+        //Устанавливаем текущее значени воспроизведения в результат расчёта процентного соотношения места куда пользователь нажимает
+        videoPlayer.currentTime = (videoPlayer.duration / 100) * videoProgress.value;
+    })
+
 }
