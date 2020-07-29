@@ -18,6 +18,8 @@ export const videoPlayerInit = () => {
         videoPlayer.currentTime = 0;
     }
 
+    //Вспомогательная функция для добавления нуля в переди чисел до 10
+    const getZero = num => num < 10 ? `0${num}` : num;
     //===========================события============================================================
 
     //Воспроизведение/Пауза при нажатии на по экрану
@@ -41,5 +43,26 @@ export const videoPlayerInit = () => {
 
     //Событие при нажатию кнопки stop
     videoButtonStop.addEventListener('click', stopPlay);
+
+    //событие срабатывает каждый раз при смене currentTime
+    videoPlayer.addEventListener('timeupdate', () => {
+        //Получаем текущее время и общее время
+        const currentTime = videoPlayer.currentTime;
+        const duration = videoPlayer.duration;
+
+        //Получаем кол-во минут и секунд для текущего
+        const currentMinutes = getZero(Math.floor(currentTime / 60));
+        const currentSeconds = getZero(Math.floor(currentTime % 60));
+        //и общего времени
+        const totalMinutes = getZero(Math.floor(duration / 60));
+        const totalSeconds = getZero(Math.floor(duration % 60));
+
+        //Подставляем его в соответсвующие поля в верстке
+        videoTimePassed.textContent = `${currentMinutes}:${currentSeconds}`;
+        videoTimeTotal.textContent = `${totalMinutes}:${totalSeconds}`;
+
+        //Получаем сколько времени в процентном соотношение пройдено и подставляем его в инпут, для движения бегунка проигрователя
+        videoProgress.value = (currentTime / duration) * 100;
+    })
 
 }
