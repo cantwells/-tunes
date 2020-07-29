@@ -7,5 +7,30 @@ export const videoPlayerInit = () => {
         videoTimeTotal = document.querySelector('.video-time__total'), //полное вреся
         videoProgress = document.querySelector('.video-progress'); //прогресс бар 
 
+    //============================Функции==========================================================
+
+    //Переключает состояние на воспроизводить/пауза
+    const togglePlay = () => videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause();
+
+    //===========================события============================================================
+
+    //Воспроизведение/Пауза при нажатии на по экрану
+    videoPlayer.addEventListener('click', togglePlay);
+
+    //Воспроизведение по нажатию на кнопу play
+    videoButtonPlay.addEventListener('click', togglePlay);
+
+    //смена иконок при проигрывании видео, 
+    videoPlayer.addEventListener('play', () => {
+        //меняем иконку проигрывания и паузы
+        videoButtonPlay.classList.remove('fa-play');
+        videoButtonPlay.classList.add('fa-pause');
+    })
+
+    //смена иконок при остановке воспроизведения
+    videoPlayer.addEventListener('pause', () => {
+        videoButtonPlay.classList.remove('fa-pause');
+        videoButtonPlay.classList.add('fa-play');
+    })
 
 }
