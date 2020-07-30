@@ -5,8 +5,10 @@ export const videoPlayerInit = () => {
         videoButtonStop = document.querySelector('.video-button__stop'), //кнопка stop
         videoTimePassed = document.querySelector('.video-time__passed'), //время сколько пройдено
         videoTimeTotal = document.querySelector('.video-time__total'), //полное вреся
-        videoProgress = document.querySelector('.video-progress'), //прогресс бар
-        videoButtonFullscreen = document.querySelector('.video-button__fullscreen'); //кнопка на отображеиня на весь экран 
+        videoProgress = document.querySelector('.video-progress'), //прогресс бар видео
+        videoButtonFullscreen = document.querySelector('.video-button__fullscreen'), //кнопка на отображеиня на весь экран 
+        videoButtonVolumeUp = document.querySelector('.video-button__volume-up'), //кнопка звука
+        soundProgress = document.querySelector('.sound-progress'); //прогресс бар звука
 
     //============================Функции==========================================================
 
