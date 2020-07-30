@@ -78,4 +78,21 @@ export const videoPlayerInit = () => {
     videoButtonFullscreen.addEventListener('click', () => {
         videoPlayer.requestFullscreen();
     })
+
+    //Убираем/возвращаем звук
+    videoButtonVolumeUp.addEventListener('click', () => {
+        //меняем значение свойтву muted, тем самым чередуем наличие и отсутсвие звука
+        videoPlayer.muted = !videoPlayer.muted;
+
+        if (videoPlayer.muted) {
+            //Меням ярлычки и бегунок уровня звука
+            videoButtonVolumeUp.classList.remove('fa-volume-up');
+            videoButtonVolumeUp.classList.add('fa-volume-off');
+            soundProgress.value = 0;
+        } else {
+            videoButtonVolumeUp.classList.remove('fa-volume-off');
+            videoButtonVolumeUp.classList.add('fa-volume-up');
+            soundProgress.value = 100;
+        }
+    })
 }
