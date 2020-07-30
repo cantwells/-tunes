@@ -5,7 +5,8 @@ export const videoPlayerInit = () => {
         videoButtonStop = document.querySelector('.video-button__stop'), //кнопка stop
         videoTimePassed = document.querySelector('.video-time__passed'), //время сколько пройдено
         videoTimeTotal = document.querySelector('.video-time__total'), //полное вреся
-        videoProgress = document.querySelector('.video-progress'); //прогресс бар 
+        videoProgress = document.querySelector('.video-progress'), //прогресс бар
+        videoButtonFullscreen = document.querySelector('.video-button__fullscreen'); //кнопка на отображеиня на весь экран 
 
     //============================Функции==========================================================
 
@@ -71,4 +72,8 @@ export const videoPlayerInit = () => {
         videoPlayer.currentTime = (videoPlayer.duration / 100) * videoProgress.value;
     })
 
+    //Вывод видео на весь экран
+    videoButtonFullscreen.addEventListener('click', () => {
+        videoPlayer.requestFullscreen();
+    })
 }
