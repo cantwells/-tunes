@@ -24,7 +24,9 @@ input {
 }
 
 button {
-    cursor: pointer
+    cursor: pointer;
+    width: 16px;
+    height: 15px;
 }
 
 img {
