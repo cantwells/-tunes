@@ -25,8 +25,9 @@ input {
 
 button {
     cursor: pointer;
-    width: 16px;
-    height: 15px;
+    /* width: 16px;
+    height: 15px; */
+    outline: none;
 }
 
 img {
@@ -361,7 +362,7 @@ main {
     background-color: transparent;
     border: none;
     font-size: 56px;
-    color: #fff
+    color: #fff;
 }
 
 .radio-stop:disabled {
