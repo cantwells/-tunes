@@ -30,3 +30,4 @@ playerBtns.forEach((btn, i) => {
 })
 
 videoPlayerInit();
+radioPlayerInit();
