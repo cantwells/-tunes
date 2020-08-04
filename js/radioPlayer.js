@@ -52,4 +52,9 @@ export const radioPlayerInit = () => {
         }
 
     })
+    radioStop.addEventListener('click', event => {
+        //запускаем или останавливаем радио
+        audio.paused ? audio.play() : audio.pause();
+        togglePlay();
+    })
 }
