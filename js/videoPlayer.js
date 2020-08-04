@@ -9,7 +9,7 @@ export const videoPlayerInit = () => {
         videoButtonFullscreen = document.querySelector('.video-button__fullscreen'), //кнопка на отображеиня на весь экран 
         videoButtonVolumeUp = document.querySelector('.video-button__volume-up'), //кнопка звука
         soundProgress = document.querySelector('.sound-progress'); //прогресс бар звука
-
+    let val = soundProgress.value; //Получение значения ползунка
     //============================Функции==========================================================
 
     //Переключает состояние на воспроизводить/пауза
@@ -23,7 +23,20 @@ export const videoPlayerInit = () => {
 
     //Вспомогательная функция для добавления нуля в переди чисел до 10
     const getZero = num => num < 10 ? `0${num}` : num;
-    //===========================события============================================================
+
+    const toggleVol = () => {
+
+            if (!videoPlayer.volume || videoPlayer.muted) {
+                //Меням ярлычки и бегунок уровня звука
+                videoButtonVolumeUp.classList.remove('fa-volume-up');
+                videoButtonVolumeUp.classList.add('fa-volume-off');
+            } else {
+                videoButtonVolumeUp.classList.remove('fa-volume-off');
+                videoButtonVolumeUp.classList.add('fa-volume-up');
+            }
+            // videoPlayer.muted ? soundProgress.value = 0 : soundProgress.value = 100;
+        }
+        //===========================события============================================================
 
     //Воспроизведение/Пауза при нажатии на по экрану
     videoPlayer.addEventListener('click', togglePlay);
@@ -81,18 +94,19 @@ export const videoPlayerInit = () => {
 
     //Убираем/возвращаем звук
     videoButtonVolumeUp.addEventListener('click', () => {
-        //меняем значение свойтву muted, тем самым чередуем наличие и отсутсвие звука
-        videoPlayer.muted = !videoPlayer.muted;
-
-        if (videoPlayer.muted) {
-            //Меням ярлычки и бегунок уровня звука
-            videoButtonVolumeUp.classList.remove('fa-volume-up');
-            videoButtonVolumeUp.classList.add('fa-volume-off');
+        if (!videoPlayer.muted) {
+            val = soundProgress.value;
             soundProgress.value = 0;
+            videoPlayer.muted = true;
         } else {
-            videoButtonVolumeUp.classList.remove('fa-volume-off');
-            videoButtonVolumeUp.classList.add('fa-volume-up');
-            soundProgress.value = 100;
+            soundProgress.value = val;
+            videoPlayer.muted = false;
         }
+        toggleVol();
+    })
+
+    soundProgress.addEventListener('input', () => {
+        videoPlayer.volume = soundProgress.value / 100;
+        toggleVol();
     })
 }
