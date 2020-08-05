@@ -187,6 +187,17 @@ main {
     color: #fff
 }
 
+.radio-footer {
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 110px;
+}
+
+button.radio-button,
+.radio_volume-progress.sound-progress {
+    margin: 0;
+}
+
 .radio {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -548,7 +559,7 @@ input[type=range] {
 }
 
 input[type=range].sound-progress {
-    width: 30%;
+    max-width: 100px;
 }
 
 input[type=range]:focus {
@@ -713,7 +724,8 @@ input[type=range]:focus::-ms-fill-upper {
     color: #fff
 }
 
-.video-button {
+.video-button,
+.radio-button {
     color: #fff;
     background-color: transparent;
     border: 0;
@@ -748,6 +760,11 @@ input[type=range]:focus::-ms-fill-upper {
 
 .radio {
     display: none
+}
+
+.radio-volume {
+    max-width: 200px;
+    float: right;
 }
 
 .radio.active {
