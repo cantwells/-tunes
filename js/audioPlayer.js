@@ -27,12 +27,18 @@ export const audioPlayerInit = () => {
         const target = event.target;
 
         if (target.classList.contains('audio-button__play')) {
-            audioPlayer.src = `../audio/${playlist[idxTrack]}.mp3`;
-            audioPlayer.play();
-            audio.classList.add('play');
-            audioHeader.textContent = playlist[idxTrack].toUpperCase();
-            audioImg.src = `../audio/${playlist[idxTrack]}.jpg`;
-            togglePlay();
+            if (audioPlayer.paused) {
+                audioPlayer.src = `../audio/${playlist[idxTrack]}.mp3`;
+                audioPlayer.play();
+                audio.classList.add('play');
+                audioHeader.textContent = playlist[idxTrack].toUpperCase();
+                audioImg.src = `../audio/${playlist[idxTrack]}.jpg`;
+                togglePlay();
+            } else {
+                audioPlayer.pause();
+                audio.classList.remove('play');
+                togglePlay();
+            }
         }
     })
 
