@@ -35,4 +35,17 @@ export const audioPlayerInit = () => {
             togglePlay();
         }
     })
+
+    audioPlayer.addEventListener('timeupdate', () => {
+        const totalMinutes = checkZero(Math.floor(audioPlayer.duration / 60) || 0);
+        const titalSeconds = checkZero(Math.floor(audioPlayer.duration % 60) || 0);
+        const passedMinutes = checkZero(Math.floor(audioPlayer.currentTime / 60) || 0);
+        const passedSecundes = checkZero(Math.floor(audioPlayer.currentTime % 60) || 0);
+
+        audioTimeTotal.textContent = `${totalMinutes}:${titalSeconds}`;
+        audioTimePassed.textContent = `${passedMinutes}:${passedSecundes}`;
+        const process = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        audioProgressTiming.style.width = `${process}%`;
+        // console.log(Math.floor(audioPlayer.currentTime));
+    })
 }
