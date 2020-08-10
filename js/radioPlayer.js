@@ -85,16 +85,23 @@ export const radioPlayerInit = () => {
 
     //Кнопка включение выключения звука
     radioButton.addEventListener('click', () => {
-        if (!audio.muted) { //при выключенном звуке
-            value = radioVolumeProgress.value; //устанавливаем текущее значение ползунка громкости
-            audio.muted = true;
-            audio.volume = 0; //сбрасываем громкость звука в ноль
-            radioVolumeProgress.value = 0; //сбрасываем бегунок в ноль
-        } else {
-            audio.muted = false;
-            radioVolumeProgress.value = value; //Выставляем значение ползунка на прежнее место
-            audio.volume = value / 100; //Выставляем уровень звкука на прежнее место
-        }
-        changeIcon(); //выставляем нужные иконки
-    })
+            if (!audio.muted) { //при выключенном звуке
+                value = radioVolumeProgress.value; //устанавливаем текущее значение ползунка громкости
+                audio.muted = true;
+                audio.volume = 0; //сбрасываем громкость звука в ноль
+                radioVolumeProgress.value = 0; //сбрасываем бегунок в ноль
+            } else {
+                audio.muted = false;
+                radioVolumeProgress.value = value; //Выставляем значение ползунка на прежнее место
+                audio.volume = value / 100; //Выставляем уровень звкука на прежнее место
+            }
+            changeIcon(); //выставляем нужные иконки
+        })
+        //метод остановки радио
+    radioPlayerInit.stop = () => {
+        audio.pause();
+        radio.classList.remove('play');
+        radioStop.classList.remove('fa-stop');
+        radioStop.classList.add('fa-play');
+    }
 }

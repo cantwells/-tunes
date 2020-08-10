@@ -86,15 +86,22 @@ export const audioPlayerInit = () => {
 
     //перемотка аудио в зависимости от нажатия на место прогрес бара
     audioProgress.addEventListener('click', event => {
-        //получаем значени точки по оси Х, от левого края
-        const x = event.offsetX;
-        //получаем полную длину прогресс бара
-        const allWidth = audioProgress.clientWidth;
-        //полное время воспроизведения
-        const duration = audioPlayer.duration;
-        //высчитываем время с места куда мы кликнули
-        const progress = (x / allWidth) * duration;
-        //подставляем в текущее время воспроизведения
-        audioPlayer.currentTime = progress;
-    })
+            //получаем значени точки по оси Х, от левого края
+            const x = event.offsetX;
+            //получаем полную длину прогресс бара
+            const allWidth = audioProgress.clientWidth;
+            //полное время воспроизведения
+            const duration = audioPlayer.duration;
+            //высчитываем время с места куда мы кликнули
+            const progress = (x / allWidth) * duration;
+            //подставляем в текущее время воспроизведения
+            audioPlayer.currentTime = progress;
+        })
+        //метод для остановки воспроизведения
+    audioPlayerInit.stop = () => {
+        audioPlayer.pause();
+        audio.classList.remove('play');
+        audioButtonPlay.classList.remove('fa-pause');
+        audioButtonPlay.classList.add('fa-play');
+    }
 }

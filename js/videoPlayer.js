@@ -106,7 +106,13 @@ export const videoPlayerInit = () => {
     })
 
     soundProgress.addEventListener('input', () => {
-        videoPlayer.volume = soundProgress.value / 100;
-        toggleVol();
-    })
+            videoPlayer.volume = soundProgress.value / 100;
+            toggleVol();
+        })
+        //метод остановки видео
+    videoPlayerInit.stop = () => {
+        videoPlayer.pause();
+        videoButtonPlay.classList.remove('fa-play');
+        videoButtonPlay.classList.add('fa-pause');
+    }
 }
