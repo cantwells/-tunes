@@ -9,6 +9,7 @@ export const audioPlayerInit = () => {
         audioButtonPlay = document.querySelector('.audio-button__play'), //кнопка play
         audioTimePassed = document.querySelector('.audio-time__passed'), //время воспроизведения
         audioTimeTotal = document.querySelector('.audio-time__total'), //полное время воспроизведения
+        audioProgress = document.querySelector('.audio-progress'), //прогрес бар
         audioProgressTiming = document.querySelector('.audio-progress__timing'); //див отображающий пройденное время
 
 
@@ -82,4 +83,18 @@ export const audioPlayerInit = () => {
 
     //остановка видео после завершения воспроизведения
     audioPlayer.addEventListener('ended', togglePlay);
+
+    //перемотка аудио в зависимости от нажатия на место прогрес бара
+    audioProgress.addEventListener('click', event => {
+        //получаем значени точки по оси Х, от левого края
+        const x = event.offsetX;
+        //получаем полную длину прогресс бара
+        const allWidth = audioProgress.clientWidth;
+        //полное время воспроизведения
+        const duration = audioPlayer.duration;
+        //высчитываем время с места куда мы кликнули
+        const progress = (x / allWidth) * duration;
+        //подставляем в текущее время воспроизведения
+        audioPlayer.currentTime = progress;
+    })
 }
