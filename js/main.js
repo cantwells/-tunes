@@ -11,19 +11,17 @@ const playerBtns = document.querySelectorAll('.player-btn'), //Кнопки в �
 //============================Функции=========================================================
 
 //Функция сброса класса видимости
-const resetClass = () => {
-    playerBtns.forEach((el, i) => {
-        el.classList.remove('active');
-        playerBlocks[i].classList.remove('active');
-    })
+const deactivationPlayer = () => {
+    temp.style.display = 'none';
+    playerBtns.forEach((el) => el.classList.remove('active'));
+    playerBlocks.forEach((el) => el.classList.remove('active'));
 }
 
 //============================События=========================================================
 //вешаем событие на вкладки
 playerBtns.forEach((btn, i) => {
     btn.addEventListener('click', () => {
-        temp.style.display = 'none';
-        resetClass();
+        deactivationPlayer();
         btn.classList.add('active');
         playerBlocks[i].classList.add('active');
     });
