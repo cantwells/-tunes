@@ -18,40 +18,68 @@ export const audioPlayerInit = () => {
     //==============================Функции==============================================================
     //переключение иконки воспроизведения
     const togglePlay = () => {
-        audioButtonPlay.classList.toggle('fa-play');
-        audioButtonPlay.classList.toggle('fa-pause');
+            audio.classList.toggle('play');
+            audioButtonPlay.classList.toggle('fa-play');
+            audioButtonPlay.classList.toggle('fa-pause');
+        }
+        //загрузка трека
+    const loadTrack = () => {
+        //запоминаем значение в котором был трек 
+        const isPlayed = audioPlayer.paused;
+        //получаем имя трека
+        const track = playlist[idxTrack];
+        //подставляем в src сформированное значение 
+        audioPlayer.src = `../audio/${track}.mp3`;
+        //выводим имя трека
+        audioHeader.textContent = track.toUpperCase();
+        //подставляем соответсвующую картинку
+        audioImg.src = `../audio/${track}.jpg`;
+        //если до срабатывания функции трек воспроизводился, то он будет воспроизводится, если нет то будет на паузе
+        isPlayed ? audioPlayer.pause() : audioPlayer.play();
     }
 
     //===============================Событие==============================================================
+    //отлавливаем событие по нажатию на кнопки: play, next, prev
     audioNavigation.addEventListener('click', event => {
-        const target = event.target;
-
-        if (target.classList.contains('audio-button__play')) {
-            if (audioPlayer.paused) {
-                audioPlayer.src = `../audio/${playlist[idxTrack]}.mp3`;
-                audioPlayer.play();
-                audio.classList.add('play');
-                audioHeader.textContent = playlist[idxTrack].toUpperCase();
-                audioImg.src = `../audio/${playlist[idxTrack]}.jpg`;
-                togglePlay();
-            } else {
-                audioPlayer.pause();
-                audio.classList.remove('play');
+            const target = event.target;
+            //поведение при нажатие на кнопку play
+            if (target.classList.contains('audio-button__play')) {
+                const track = playlist[idxTrack];
+                audioHeader.textContent = track.toUpperCase();
+                audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
                 togglePlay();
             }
-        }
-    })
-
+            //при нажатие на кнопку prev
+            if (target.classList.contains('audio-button__prev')) {
+                idxTrack !== 0 ? idxTrack-- : idxTrack = playlist.length - 1;
+                loadTrack();
+            }
+            //при нажатие на кнопку next
+            if (target.classList.contains('audio-button__next')) {
+                (idxTrack < playlist.length - 1) ? idxTrack++ : idxTrack = 0;
+                loadTrack();
+            }
+        })
+        //движение линии во время проигрывания
     audioPlayer.addEventListener('timeupdate', () => {
+        //получаем кол-во всего минут
         const totalMinutes = checkZero(Math.floor(audioPlayer.duration / 60) || 0);
+        //получение кол-во всего секунд
         const titalSeconds = checkZero(Math.floor(audioPlayer.duration % 60) || 0);
+        //получение всего минут в текущее время воспроизведения
         const passedMinutes = checkZero(Math.floor(audioPlayer.currentTime / 60) || 0);
+        //получение всего секунд в текущее время воспроизведения
         const passedSecundes = checkZero(Math.floor(audioPlayer.currentTime % 60) || 0);
-
+        //подставляем в соостетсвующие поля
         audioTimeTotal.textContent = `${totalMinutes}:${titalSeconds}`;
         audioTimePassed.textContent = `${passedMinutes}:${passedSecundes}`;
+        //получение процентного соотношения при проигрывании
         const process = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        //задаем полученные проценты в ширину
         audioProgressTiming.style.width = `${process}%`;
-        // console.log(Math.floor(audioPlayer.currentTime));
+
     })
+
+    //остановка видео после завершения воспроизведения
+    audioPlayer.addEventListener('ended', togglePlay);
 }
